@@ -1,4 +1,5 @@
-const Home = () => {
+const Home = async () => {
+  
   return (
     <section className="flex-start flex-col paddings mb-16">
       <h1>Categories</h1>

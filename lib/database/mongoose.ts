@@ -1,39 +1,19 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
-interface MongooseConnection {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
-}
-
-let cached: MongooseConnection = (global as any).mongoose
-
-if(!cached) {
-  cached = (global as any).mongoose = { 
-    conn: null, promise: null 
-  }
-}
-
 export const connectToDatabase = async () => {
-  if(cached.conn) {
-    console.log('Usando conexión existente a MongoDB.');
-    return cached.conn;
+  if (!MONGODB_URL) throw new Error('Missing MONGODB_URL');
+
+  try {
+    await mongoose.connect(MONGODB_URL, { 
+      dbName: 'flexibble', 
+      bufferCommands: false 
+    });
+
+    return mongoose.connection;
+  } catch (error) {
+    console.error('Error de conexión a MongoDB Atlas:', error);
+    throw error;
   }
-
-  if(!MONGODB_URL) {
-    throw new Error('Missing MONGODB_URL');
-  }
-
-  console.log('Conectando a MongoDB Atlas...');
-
-  cached.promise = mongoose.connect(MONGODB_URL, { 
-    dbName: 'flexibble', bufferCommands: false 
-  })
-
-  cached.conn = await cached.promise;
-
-  console.log('Conexión exitosa a MongoDB Atlas.');
-
-  return cached.conn;
 }

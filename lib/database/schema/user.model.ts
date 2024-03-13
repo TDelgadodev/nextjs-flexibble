@@ -20,6 +20,12 @@ const UserSchema: Schema = new Schema({
     projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 
-const User = mongoose.model<IUser>('User', UserSchema);
+let User: any;
+
+if (mongoose.models.User) {
+  User = mongoose.model('User');
+} else {
+  User = mongoose.model<IUser>('User', UserSchema);
+}
 
 export default User;

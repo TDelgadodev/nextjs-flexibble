@@ -1,7 +1,7 @@
 import Modal from "@/components/Modal";
 import ProjectActions from "@/components/ProjectActions";
 import RelatedProjects from "@/components/RelatedProjects";
-import { getProjectDetails } from "@/lib/actions/project.actions";
+import { getProjectDetails } from "@/lib/actions/project.action";
 import { getUserById } from "@/lib/actions/user.actions";
 import { auth, clerkClient } from "@clerk/nextjs";
 import Image from "next/image";

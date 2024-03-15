@@ -1,6 +1,6 @@
 import Modal from "@/components/Modal";
 import ProjectForm from "@/components/ProjectForm";
-import { getProjectDetails } from "@/lib/actions/project.actions";
+import { getProjectDetails } from "@/lib/actions/project.action";
 import { getUserById } from "@/lib/actions/user.actions";
 import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";

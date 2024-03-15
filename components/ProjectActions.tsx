@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteProject } from "@/lib/actions/project.actions";
+import { deleteProject } from "@/lib/actions/project.action";
 import { ProjectActionsProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";

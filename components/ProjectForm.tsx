@@ -7,7 +7,7 @@ import FormField from "./FormField";
 import { categoryFilters } from "@/constants";
 import CustomMenu from "./CustomMenu";
 import CustomButton from "./CustomButton";
-import { createNewProject, updateProject } from "@/lib/actions/project.actions";
+import { createNewProject, updateProject } from "@/lib/actions/project.action";
 import { useRouter } from "next/navigation";
 import { FormState } from "@/common.types";
 

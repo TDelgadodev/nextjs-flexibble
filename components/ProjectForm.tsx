@@ -1,21 +1,21 @@
 "use client";
 
-import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
+import { ProjectFormProps } from "@/types";
 import Image from "next/image";
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import FormField from "./FormField";
-import CustomMenu from "./CustomMenu";
 import { categoryFilters } from "@/constants";
-import Button from "./Button";
+import CustomMenu from "./CustomMenu";
+import CustomButton from "./CustomButton";
+import { createNewProject, updateProject } from "@/lib/actions/project.actions";
+import { useRouter } from "next/navigation";
+import { FormState } from "@/common.types";
 
-type Props = {
-  type: string;
-  session: SessionInterface;
-  project?: ProjectInterface;
-};
-const ProjectForm = ({ type, session, project }: Props) => {
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const [form, setForm] = useState<FormState>({
+const ProjectForm = ({ type, user, project }: ProjectFormProps) => {
+  const router = useRouter();
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [form, setForm] = useState({
     title: project?.title || "",
     description: project?.description || "",
     image: project?.image || "",
@@ -24,11 +24,44 @@ const ProjectForm = ({ type, session, project }: Props) => {
     category: project?.category || "",
   });
 
-  const handleStateChange = (fieldName: keyof FormState, value: string) => {
-    setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+
+    try {
+      if (type === "create") {
+        await createNewProject({
+          form,
+          creatorId: user._id!,
+        });
+
+        router.push("/");
+      }
+
+      if (type === "edit") {
+        const updatedProject = await updateProject({
+          form,
+          projectId: project?._id,
+          currentUserId: user?._id,
+        });
+
+        if (updatedProject) {
+          router.push(`/project/${updatedProject._id}`);
+        }
+      }
+    } catch (error) {
+      alert(
+        `Failed to ${
+          type === "create" ? "create" : "edit"
+        } a project. Try again!`
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handlechangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const file = e.target.files?.[0];
@@ -36,7 +69,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
     if (!file) return;
 
     if (!file.type.includes("image")) {
-      alert("Please upload an image!");
+      alert("Please upload an image file");
 
       return;
     }
@@ -52,9 +85,9 @@ const ProjectForm = ({ type, session, project }: Props) => {
     };
   };
 
-  const handleSubmit = (e: React.FormEvent) => {};
-
-  const handleFormSubmit = () => {};
+  const handleStateChange = (fieldName: keyof FormState, value: string) => {
+    setForm((prevState) => ({ ...prevState, [fieldName]: value }));
+  };
 
   return (
     <form onSubmit={handleFormSubmit} className="flexStart form">
@@ -68,7 +101,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
           accept="image/*"
           required={type === "create" ? true : false}
           className="form_image-input"
-          onChange={(e) => handlechangeImage(e)}
+          onChange={(e) => handleChangeImage(e)}
         />
         {form.image && (
           <Image
@@ -99,7 +132,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
         type="url"
         title="Website URL"
         state={form.liveSiteUrl}
-        placeholder="https://google.com"
+        placeholder="https://3dsaulparedesportfolio.netlify.app/"
         setState={(value) => handleStateChange("liveSiteUrl", value)}
       />
 
@@ -107,7 +140,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
         type="url"
         title="GitHub URL"
         state={form.githubUrl}
-        placeholder="https://github.com/TDelgadoDev"
+        placeholder="https://github.com/saulkurosaki"
         setState={(value) => handleStateChange("githubUrl", value)}
       />
 
@@ -119,15 +152,15 @@ const ProjectForm = ({ type, session, project }: Props) => {
       />
 
       <div className="flexStart w-full">
-        <Button
+        <CustomButton
           title={
-            submitting
+            isSubmitting
               ? `${type === "create" ? "Creating" : "Editing"}`
               : `${type === "create" ? "Create" : "Edit"}`
           }
           type="submit"
-          leftIcon={submitting ? "" : "/plus.svg"}
-          submitting={submitting}
+          leftIcon={isSubmitting ? "" : "/plus.svg"}
+          isSubmitting={isSubmitting}
         />
       </div>
     </form>

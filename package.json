@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-flexibble",
+  "name": "dribbble-clone",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,26 +9,38 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.6",
     "@headlessui/react": "^1.7.18",
-    "@types/jsonwebtoken": "^9.0.6",
-    "cloudinary": "^2.0.3",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.13",
+    "@types/react-dom": "18.2.6",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "class-variance-authority": "^0.7.0",
+    "cloudinary": "^1.37.1",
+    "clsx": "^2.1.0",
     "graphql-request": "^6.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.4.0",
-    "mongoose": "^8.2.1",
-    "next": "14.1.3",
-    "next-auth": "^4.24.7",
-    "react": "^18",
-    "react-dom": "^18"
+    "jsonwebtoken": "^9.0.0",
+    "lucide-react": "^0.323.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.1",
+    "next": "14.0.4",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.24",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "supports-color": "^9.3.1",
+    "svix": "^1.17.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss": "3.3.2",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "5.1.3"
   },
   "devDependencies": {
-    "@grafbase/sdk": "^0.18.0",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "@grafbase/sdk": "^0.17.0",
+    "find-unused-exports": "^5.0.0"
   }
 }

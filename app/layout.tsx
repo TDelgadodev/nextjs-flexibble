@@ -1,10 +1,9 @@
-import '@/app/globals.css'
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+import { ClerkProvider } from "@clerk/nextjs";
+import "./globals.css";
 
 export const metadata = {
   title: "Flexibble",
-  description: "Showcase and discover remarable developer projects",
+  description: "Showcase and discover remarkable developer projects.",
 };
 
 export default function RootLayout({
@@ -13,12 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

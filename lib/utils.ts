@@ -50,7 +50,7 @@ export async function getUserProjects(
 
 export async function enhanceProjectsWithAuthor(projects: any[]) {
   const fetchedProjects = await Promise.all(
-    projects.map(async (project) => {
+    projects?.map(async (project) => {
       const authorDetails = await getUserById(project.createdBy);
       const author = authorDetails.name;
       const authorImage = authorDetails.avatarUrl;

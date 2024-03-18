@@ -8,7 +8,7 @@ import User from "@/database/user.model";
 
 export const createNewProject = async (params: CreateNewProjectParams) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const { form, creatorId } = params;
 
@@ -35,7 +35,7 @@ export const createNewProject = async (params: CreateNewProjectParams) => {
 
 export const fetchAllProjects = async (category?: string) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     let allProjects = [];
 
@@ -55,7 +55,7 @@ export const fetchAllProjects = async (category?: string) => {
 
 export const getProjectDetails = async (id: string) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const project = await Project.findById(id);
 
@@ -88,7 +88,7 @@ export const updateProject = async ({
   currentUserId,
 }: UpdateProjectParams) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
 
     const projectToUpdate = await Project.findById(projectId);
 

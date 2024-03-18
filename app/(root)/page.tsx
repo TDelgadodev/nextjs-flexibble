@@ -1,9 +1,8 @@
 import Categories from "@/components/Categories";
 import ProjectCard from "@/components/ProjectCard";
 import { fetchAllProjects } from "@/lib/actions/project.action";
-import { getUserById } from "@/lib/actions/user.actions";
 import { enhanceProjectsWithAuthor } from "@/lib/utils";
-import { ProjectInterface, ProjectProps } from "@/types";
+import { ProjectInterface } from "@/types";
 
 type SearchParams = {
   category?: string;
@@ -33,7 +32,7 @@ const Home = async ({ searchParams: { category } }: Props) => {
       <Categories />
 
       <section className="projects-grid">
-        {projects.map((project: ProjectInterface) => (
+        {projects?.map((project: ProjectInterface) => (
           <ProjectCard
             key={project?._id}
             id={project?._id}

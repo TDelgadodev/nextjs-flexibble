@@ -14,12 +14,19 @@ import { getUserById } from "@/lib/actions/user.actions";
 const Navbar = async () => {
   const { userId } = auth();
   let _id = "";
-
   if (userId !== null) {
-    const clerkUser = await clerkClient.users.getUser(userId as string);
-    const user_id = String(clerkUser.publicMetadata.userId);
-    const user = await getUserById(user_id);
-    _id = user?._id;
+    try {
+      const clerkUser = await clerkClient.users.getUser(userId as string);
+      console.log(clerkUser.id);
+      
+      _id = clerkUser.id;
+      console.log(_id);
+      
+      const user = await getUserById(_id);
+            
+    } catch (error) {
+      console.error("Error al obtener el usuario:", error);
+    }
   }
 
   return (

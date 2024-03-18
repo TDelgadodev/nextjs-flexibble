@@ -23,7 +23,7 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => {
         </div>
 
         <Menu.Items className="flexStart custom_menu-items">
-          {filters.map((tag) => (
+          {filters?.map((tag) => (
             <Menu.Item key={tag}>
               <button
                 type="button"

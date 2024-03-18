@@ -6,7 +6,9 @@ import User from "@/database/user.model";
 
 export const createUser = async (user: CreateUserParams) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
+    console.log(user);
+    
 
     const newUser = await User.create(user);
 
@@ -18,7 +20,9 @@ export const createUser = async (user: CreateUserParams) => {
 
 export const getUserById = async (userId: string) => {
   try {
-    connectToDatabase();
+    await connectToDatabase();
+    console.log(userId);
+    
 
     const user = await User.findById(userId);
 

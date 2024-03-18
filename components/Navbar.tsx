@@ -16,12 +16,8 @@ const Navbar = async () => {
   let _id = "";
   if (userId !== null) {
     try {
-      const clerkUser = await clerkClient.users.getUser(userId as string);
-      console.log(clerkUser.id);
-      
-      _id = clerkUser.id;
-      console.log(_id);
-      
+      const clerkUser = await clerkClient.users.getUser(userId as string);      
+      _id = clerkUser.id;      
       const user = await getUserById(_id);
             
     } catch (error) {
